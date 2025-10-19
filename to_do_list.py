@@ -1,9 +1,9 @@
 import csv
 
 class Task:
-    def __init__(self, task, olaviat, comment = None):
+    def __init__(self, task, priority, comment = None):
         self.task = task
-        self.olaviat = olaviat
+        self.priority = priority
         self.comment = comment
 
     def Description(self, comment):
@@ -11,7 +11,7 @@ class Task:
 
     def __str__(self):
         comment_display = self.comment if self.comment else "No Comment"
-        return f"task= {self.task} | Olaviat= {self.olaviat} | Comment= {comment_display}" 
+        return f"task= {self.task} | priority= {self.priority} | Comment= {comment_display}" 
     
 class ToDo:
     def __init__(self):
@@ -24,8 +24,10 @@ class ToDo:
         if 0 < index <= len(self.tasks):
             removed = self.tasks.pop(index - 1)
             print(f"{removed} removed.")
+            print("-" * 50)
         else:
             print("Task not found!")
+            print("-" * 50)
 
     def show_task(self):
         for i, tasks in enumerate(self.tasks):
@@ -34,10 +36,10 @@ class ToDo:
     def save_tasks(self):
         with open('tasks.csv', mode="w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow(["Task", "Olaviat", "Comment"])
+            writer.writerow(["Task", "priority", "Comment"])
 
             for row in self.tasks:
-                writer.writerow([row.task, row.olaviat, row.comment or "No Comment"])
+                writer.writerow([row.task, row.priority, row.comment or "No Comment"])
             
 to_do_list = ToDo()
 choice = 0
@@ -56,13 +58,13 @@ while True:
 
         if choice == 1:
             title = input("Enter task title: ").strip()
-            olaviat = input("Enter task priority (high/medium/low): ").strip().lower()
-            comment = input("Enter comment (optional): ").strip()
+            priority = input("Enter task priority (high/medium/low): ").strip().lower()
+            comment = input("Enter comment (optional - press enter to continue...): ").strip()
             comment = comment if comment else None
 
-            task = Task(title, olaviat, comment)
+            task = Task(title, priority, comment)
             to_do_list.add_task(task)
-            print("Task added successfully.\n")
+            print("Task added successfully.")
             print("-" * 50)
 
         elif choice == 2:
@@ -73,8 +75,8 @@ while True:
                 to_do_list.remove_task(index)
 
             except ValueError:
-                print("Please enter a valid number!\n")
-
+                print("Please enter a valid number!")
+                print("-" * 50)
 
         elif choice == 3:
             to_do_list.show_task()
@@ -91,7 +93,9 @@ while True:
 
         else:
             print("Invalid choice! Please select a number between 1-5.\n")
+            print("-" * 50)
     
     except ValueError:
         print("Please enter a valid number!\n")
+        print("-" * 50)
 
