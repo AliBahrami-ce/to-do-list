@@ -1,4 +1,14 @@
 import csv
+import os
+
+def clear_screan():
+    if os.name == 'nt':
+        os.system('cls') # Windows Users
+    else:
+        os.system('clear') # Linux Users
+        
+def press_enter():
+    input('\nPress Enter to Continue...')
 
 class Task:
     def __init__(self, task, priority, comment = None):
@@ -23,15 +33,16 @@ class ToDo:
     def remove_task(self, index):
         if 0 < index <= len(self.tasks):
             removed = self.tasks.pop(index - 1)
-            print(f"{removed} removed.")
-            print("-" * 50)
+            print(f"\n{removed} removed.")
+            press_enter()
         else:
-            print("Task not found!")
-            print("-" * 50)
+            print("\nTask not found!")
+            press_enter()
 
     def show_task(self):
         for i, tasks in enumerate(self.tasks):
             print(f"{i + 1} ---> {tasks}")
+        print('=' * 50)
 
     def save_tasks(self):
         with open('tasks.csv', mode="w", newline="", encoding="utf-8") as file:
@@ -45,6 +56,7 @@ to_do_list = ToDo()
 choice = 0
 
 while True:
+    clear_screan()
     print("1. Add new Task.")
     print("2. Remove the Task.")
     print("3. Show all Tasks.")
@@ -54,9 +66,9 @@ while True:
     
     try:
         choice = int(input("Please Enter number of your choice: "))
-        print("-" * 50)
 
         if choice == 1:
+            clear_screan()
             title = input("Enter task title: ").strip()
             priority = input("Enter task priority (high/medium/low): ").strip().lower()
             comment = input("Enter comment (optional - press enter to continue...): ").strip()
@@ -64,38 +76,39 @@ while True:
 
             task = Task(title, priority, comment)
             to_do_list.add_task(task)
-            print("Task added successfully.")
-            print("-" * 50)
-
+            print("\nTask added successfully.")
+            press_enter()
+            
         elif choice == 2:
+            clear_screan()
             to_do_list.show_task()
 
             try:
-                index = int(input("Enter the task number to remove: "))
+                index = int(input("\nEnter the task number to remove: "))
                 to_do_list.remove_task(index)
 
             except ValueError:
                 print("Please enter a valid number!")
-                print("-" * 50)
-
+                press_enter()
+                
         elif choice == 3:
+            clear_screan()
             to_do_list.show_task()
-            print("-" * 50)
-
+            press_enter()
+            
         elif choice == 4:
+            clear_screan()
             to_do_list.save_tasks()
             print("Saved.")
-            print("-" * 50)
-
+            press_enter()
 
         elif choice == 5:
             break
 
         else:
             print("Invalid choice! Please select a number between 1-5.\n")
-            print("-" * 50)
-    
+            press_enter()
+                
     except ValueError:
-        print("Please enter a valid number!\n")
-        print("-" * 50)
-
+        print("Please enter a valid number!")
+        press_enter()
