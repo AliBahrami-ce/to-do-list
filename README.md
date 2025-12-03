@@ -21,18 +21,18 @@ This CLI-based program allows you to add, remove, view, and save tasks in a clea
 
 ### 1. Clone the repository:
 
-```
+```bash
 git clone https://github.com/AliBahrami-ce/to-do-list
 ```
 
 ### 2. Navigate into the project directory:
 
-```
+```bash
 cd to-do-list
 ```
 ### 3. Run the Python script:
 
-```
+```bash
 python to_do_list.py
 ```
 
